@@ -1,0 +1,26 @@
+env:
+  browser: true
+  commonjs: true
+  es6: true
+extends:
+  - airbnb-base
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parserOptions:
+  ecmaVersion: 2018
+  ecmaFeatures:
+    arrowFunctions: true
+rules:
+  newline-before-return: error
+  no-useless-return: error
+  consistent-return: off
+  strict: error
+  eqeqeq: error
+  max-lines:
+    - error
+    - max: 100
+  object-curly-newline: off
+  semi:
+    - error
+    - never

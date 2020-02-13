@@ -1,0 +1,78 @@
+const connection = require('./../../utils/databases')
+
+const tableName = 'boards'
+
+module.exports = {
+  create: (data, callback) => {
+    connection.query(
+      `INSERT INTO ${tableName} (id_user, board, status) VALUES (?, ?, ?)`,
+      [
+        data.idUser,
+        data.name,
+        1,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
+  get: (data, callback) => {
+    connection.query(
+      `SELECT * FROM ${tableName} WHERE id_user = ?`,
+      [
+        data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
+  update: (data, callback) => {
+    connection.query(
+      `UPDATE ${tableName} SET board = ?, status = ? WHERE id_user = ?`,
+      [
+        data.name,
+        data.status,
+        data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(err, res)
+      },
+    )
+  },
+  getId: (data, callback) => {
+    connection.query(
+      `SELECT t.id, b.board, b.id AS id_board, t.task, t.location, t.status, t.date, t.latitude, t.longitude FROM ${tableName} b JOIN task t ON t.id_board = b.id WHERE b.id = ? AND b.id_user = ? AND t.id_user = ?`,
+      [
+        data.id,
+        data.idUser,
+        data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
+  deleteId: (data, callback) => {
+    connection.query(
+      `DELETE FROM ${tableName} WHERE id = ? AND id_user = ?`,
+      [
+        data.id,
+        data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
+}
