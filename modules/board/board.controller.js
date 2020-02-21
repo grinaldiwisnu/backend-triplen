@@ -61,8 +61,6 @@ module.exports = {
     }, (error, result) => {
       if (error) return ERROR(res, 400, false, error)
 
-      if (result.length === 0) return ERROR(res, 400, false, 'Board not found')
-
       return SUCCESS(res, 200, true, `Success get board with id ${req.params.id}`, result)
     })
   },
