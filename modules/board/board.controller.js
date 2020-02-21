@@ -22,7 +22,7 @@ module.exports = {
   },
 
   getBoards: (req, res) => {
-    get(req.decoded.user.id, (error, result) => {
+    get({ idUser: req.decoded.user.id }, (error, result) => {
       if (error) return ERROR(res, 400, false, error)
 
       return SUCCESS(res, 200, true, 'Success fetch board', result)
@@ -60,6 +60,8 @@ module.exports = {
       idUser: req.decoded.user.id,
     }, (error, result) => {
       if (error) return ERROR(res, 400, false, error)
+
+      if (result.length === 0) return ERROR(res, 400, false, 'Board not found')
 
       return SUCCESS(res, 200, true, `Success get board with id ${req.params.id}`, result)
     })
