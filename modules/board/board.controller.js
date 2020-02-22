@@ -9,21 +9,22 @@ module.exports = {
     payload = {
       idUser: 0,
       name: '',
+      date: '',
     }
 
     const verify = payloadCheck(req.body, payload, ['idUser', 'name'])
-    if (!verify.status) return ERROR(res, 400, false, verify.message)
+    if (!verify.status) return ERROR(res, 501, false, verify.message)
 
     create(req.body, (error, result) => {
-      if (error) return ERROR(res, 400, false, error)
+      if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 200, true, 'Success create board', result)
+      return SUCCESS(res, 201, true, 'Success create board', result)
     })
   },
 
   getBoards: (req, res) => {
     get({ idUser: req.decoded.user.id }, (error, result) => {
-      if (error) return ERROR(res, 400, false, error)
+      if (error) return ERROR(res, 500, false, error)
 
       return SUCCESS(res, 200, true, 'Success fetch board', result)
     })
@@ -38,12 +39,12 @@ module.exports = {
     }
 
     const verify = payloadCheck(req.body, payload, ['idUser', 'idBoard', 'name', 'status'])
-    if (!verify.status) return ERROR(res, 400, false, verify.message)
+    if (!verify.status) return ERROR(res, 501, false, verify.message)
 
     update(req.body, (error, result) => {
-      if (error) return ERROR(res, 400, false, error)
+      if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 200, true, 'Success update board', result)
+      return SUCCESS(res, 202, true, 'Success update board', result)
     })
   },
 
@@ -53,13 +54,13 @@ module.exports = {
     }
 
     const verify = payloadCheck(req.params, payload, ['id'])
-    if (!verify.status) return ERROR(res, 400, false, verify.message)
+    if (!verify.status) return ERROR(res, 501, false, verify.message)
 
     getId({
       id: req.params.id,
       idUser: req.decoded.user.id,
     }, (error, result) => {
-      if (error) return ERROR(res, 400, false, error)
+      if (error) return ERROR(res, 500, false, error)
 
       return SUCCESS(res, 200, true, `Success get board with id ${req.params.id}`, result)
     })
@@ -71,15 +72,15 @@ module.exports = {
     }
 
     const verify = payloadCheck(req.params, payload, ['id'])
-    if (!verify.status) return ERROR(res, 400, false, verify.message)
+    if (!verify.status) return ERROR(res, 501, false, verify.message)
 
     deleteId({
       id: req.params.id,
       idUser: req.decoded.user.id,
     }, (error, result) => {
-      if (error) return ERROR(res, 400, false, error)
+      if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 200, true, `Success delete board with id ${req.params.id}`, result)
+      return SUCCESS(res, 204, true, `Success delete board with id ${req.params.id}`, result)
     })
   },
 }

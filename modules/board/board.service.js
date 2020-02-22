@@ -5,11 +5,12 @@ const tableName = 'boards'
 module.exports = {
   create: (data, callback) => {
     connection.query(
-      `INSERT INTO ${tableName} (id_user, board, status) VALUES (?, ?, ?)`,
+      `INSERT INTO ${tableName} (id_user, board, status, date) VALUES (?, ?, ?, ?)`,
       [
         data.idUser,
         data.name,
         1,
+        data.date,
       ],
       (err, res) => {
         if (err) return callback(err)
