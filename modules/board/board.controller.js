@@ -80,7 +80,7 @@ module.exports = {
     }, (error, result) => {
       if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 204, true, `Success delete board with id ${req.params.id}`, result)
+      return SUCCESS(res, 200, true, `Success delete board with id ${req.params.id}`, result)
     })
   },
 }

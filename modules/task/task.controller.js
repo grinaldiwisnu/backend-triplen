@@ -57,7 +57,7 @@ module.exports = {
     deleteId(req.params, (error, result) => {
       if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 204, true, `Success delete task with id ${req.params.id}`, result)
+      return SUCCESS(res, 200, true, `Success delete task with id ${req.params.id}`, result)
     })
   },
   updateTask: (req, res) => {
