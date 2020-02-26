@@ -10,8 +10,8 @@ module.exports = {
       id: 0,
       name: '',
       location: '',
-      latitude: 0,
-      longitude: 0,
+      latitude: '',
+      longitude: '',
       date: '',
     }
 
