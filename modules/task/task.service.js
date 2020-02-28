@@ -73,7 +73,7 @@ module.exports = {
   },
   updateBudget: (data, callback) => {
     connection.query(
-      `UPDATE ${tableName} SET budget = ?, status = 0 WHERE id = ? AND id_user = ?`,
+      `UPDATE ${tableName} SET budget = ?, status = 1 WHERE id = ? AND id_user = ?`,
       [
         data.budget,
         data.id,
