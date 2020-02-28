@@ -49,7 +49,7 @@ module.exports = {
   },
   getId: (data, callback) => {
     connection.query(
-      `SELECT t.id, b.board, b.id AS id_board, t.task, t.location, t.status, t.date, t.latitude, t.longitude FROM ${tableName} b JOIN task t ON t.id_board = b.id WHERE b.id = ? AND b.id_user = ? AND t.id_user = ?`,
+      `SELECT t.id, b.board, b.id AS id_board, t.task, t.location, t.status, t.date, t.latitude, t.longitude, t.budget FROM ${tableName} b JOIN task t ON t.id_board = b.id WHERE b.id = ? AND b.id_user = ? AND t.id_user = ?`,
       [
         data.id,
         data.idUser,
