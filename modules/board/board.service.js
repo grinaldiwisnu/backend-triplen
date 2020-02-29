@@ -48,11 +48,12 @@ module.exports = {
   },
   update: (data, callback) => {
     connection.query(
-      `UPDATE ${tableName} SET board = ?, status = ? WHERE id_user = ?`,
+      `UPDATE ${tableName} SET board = ?, status = ? WHERE id_user = ? AND id = ?`,
       [
         data.name,
         data.status,
         data.idUser,
+        data.idBoard,
       ],
       (err, res) => {
         if (err) return callback(err)
