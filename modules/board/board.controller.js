@@ -43,7 +43,7 @@ module.exports = {
     getHistory({ idUser: req.decoded.user.id }, (error, result) => {
       if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 200, true, 'Success fetch board history', result)
+      return SUCCESS(res, 200, true, `Success fetch board history ${req.decoded.user.id}`, result)
     })
   },
   updateBoard: (req, res) => {
