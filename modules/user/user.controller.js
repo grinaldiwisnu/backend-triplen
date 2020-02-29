@@ -18,7 +18,7 @@ module.exports = {
     signIn(req.body, (error, result) => {
       if (error) return ERROR(res, 500, false, error)
 
-      if (result.length === 0) return ERROR(res, 204, false, 'User not found')
+      if (result.length === 0) return ERROR(res, 200, false, 'User not found')
       const data = result[0]
       data.token = jwt.sign({ user: data }, process.env.APP_KEY, {
         expiresIn: (60 * 60 * 24 * 7),
