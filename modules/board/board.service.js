@@ -64,7 +64,7 @@ module.exports = {
   },
   getId: (data, callback) => {
     connection.query(
-      `SELECT t.id, b.board, b.id AS id_board, t.task, t.location, t.status, t.date, t.latitude, t.longitude, t.budget FROM ${tableName} b JOIN task t ON t.id_board = b.id WHERE b.id = ? AND b.id_user = ? AND t.id_user = ?`,
+      `SELECT t.id, b.board, b.id AS id_board, t.task, t.location, t.status, t.date, t.latitude, t.longitude, t.budget FROM ${tableName} b JOIN task t ON t.id_board = b.id WHERE b.id = ? AND b.id_user = ? AND t.id_user = ? ORDER BY t.date ASC`,
       [
         data.id,
         data.idUser,
@@ -93,7 +93,7 @@ module.exports = {
   },
   getHistory: (data, callback) => {
     connection.query(
-      'SELECT b.id, b.board, b.id_user, b.status, b.date, b.created, SUM(t.budget) AS total, MAX(t.date) AS done, MIN(t.date) AS start FROM boards b JOIN task t ON t.id_board = b.id WHERE b.status = 0 AND b.id_user = ?',
+      'SELECT b.id, b.board, b.id_user, b.status, b.date, b.created, SUM(t.budget) AS total, MAX(t.date) AS done, MIN(t.date) AS start FROM boards b JOIN task t ON t.id_board = b.id WHERE b.status = 0 AND b.id_user = ? ORDER BY b.date ASC',
       [
         data.idUser,
       ],
