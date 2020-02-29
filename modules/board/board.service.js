@@ -19,11 +19,25 @@ module.exports = {
       },
     )
   },
-  get: (data, callback) => {
+  getAll: (data, callback) => {
     connection.query(
       `SELECT * FROM ${tableName} WHERE id_user = ?`,
       [
         data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
+  getFiltered: (data, callback) => {
+    connection.query(
+      `SELECT * FROM ${tableName} WHERE id_user = ? AND status = ?`,
+      [
+        data.idUser,
+        data.status,
       ],
       (err, res) => {
         if (err) return callback(err)

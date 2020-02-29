@@ -1,4 +1,4 @@
-const { create, get, update, getId, deleteId } = require('./board.service')
+const { create, getAll, getFiltered, update, getId, deleteId } = require('./board.service')
 const { payloadCheck } = require('./../../middleware/payload.middleware')
 const { ERROR, SUCCESS } = require('./../../utils/constants')
 
@@ -23,11 +23,19 @@ module.exports = {
   },
 
   getBoards: (req, res) => {
-    get({ idUser: req.decoded.user.id }, (error, result) => {
-      if (error) return ERROR(res, 500, false, error)
+    if (req.params.status === null) {
+      getAll({ idUser: req.decoded.user.id }, (error, result) => {
+        if (error) return ERROR(res, 500, false, error)
 
-      return SUCCESS(res, 200, true, 'Success fetch board', result)
-    })
+        return SUCCESS(res, 200, true, 'Success fetch board', result)
+      })
+    } else {
+      getFiltered({ idUser: req.decoded.user.id, status: req.params.status }, (error, result) => {
+        if (error) return ERROR(res, 500, false, error)
+
+        return SUCCESS(res, 200, true, 'Success fetch board', result)
+      })
+    }
   },
 
   updateBoard: (req, res) => {
