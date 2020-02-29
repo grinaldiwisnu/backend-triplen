@@ -91,4 +91,17 @@ module.exports = {
       },
     )
   },
+  getHistory: (data, callback) => {
+    connection.query(
+      'SELECT b.id, b.board, b.id_user, b.status, b.date, b.created, SUM(t.budget) AS total, MAX(t.date) AS done, MIN(t.date) AS start FROM boards b JOIN task t ON t.id_board = b.id WHERE b.status = 0 AND b.id_user = ?',
+      [
+        data.idUser,
+      ],
+      (err, res) => {
+        if (err) return callback(err)
+
+        return callback(null, res)
+      },
+    )
+  },
 }

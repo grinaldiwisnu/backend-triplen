@@ -1,4 +1,4 @@
-const { create, getAll, getFiltered, update, getId, deleteId } = require('./board.service')
+const { create, getAll, getFiltered, update, getId, deleteId, getHistory } = require('./board.service')
 const { payloadCheck } = require('./../../middleware/payload.middleware')
 const { ERROR, SUCCESS } = require('./../../utils/constants')
 
@@ -21,7 +21,6 @@ module.exports = {
       return SUCCESS(res, 201, true, 'Success create board', result)
     })
   },
-
   getBoards: (req, res) => {
     if (req.params.status === null) {
       getAll({ idUser: req.decoded.user.id }, (error, result) => {
@@ -30,14 +29,23 @@ module.exports = {
         return SUCCESS(res, 200, true, 'Success fetch board', result)
       })
     } else {
-      getFiltered({ idUser: req.decoded.user.id, status: req.params.status }, (error, result) => {
+      getFiltered({
+        idUser: req.decoded.user.id,
+        status: req.params.status,
+      }, (error, result) => {
         if (error) return ERROR(res, 500, false, error)
 
         return SUCCESS(res, 200, true, 'Success fetch board', result)
       })
     }
   },
+  getBoardsHistory: (req, res) => {
+    getHistory({ idUser: req.decoded.user.id }, (error, result) => {
+      if (error) return ERROR(res, 500, false, error)
 
+      return SUCCESS(res, 200, true, 'Success fetch board history', result)
+    })
+  },
   updateBoard: (req, res) => {
     payload = {
       idUser: 0,
